@@ -10,3 +10,6 @@ from django.urls import reverse
 
 class Home(TemplateView):
     template_name = 'home.html'
+
+class Profile(TemplateView):
+    template_name = 'profile.html'
