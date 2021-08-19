@@ -6,3 +6,4 @@ $(document).ready( function() {
         $(".modal-body").load("/accounts/signup");
     });
 });
+

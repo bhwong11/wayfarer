@@ -46,29 +46,26 @@ class Signup(View):
 
 
 class ProfileUpdate(View):
-    
-    # model = Profile
-    # fields = ['image', 'current_city']
-    # template_name = "profile_update.html"
-    # success_url = "/profile/"
-    
+
     def post(self, request, pk):
         
         profile = Profile.objects.get(pk=pk)
         profile.image = request.POST.get("image")
+        profile.current_city = request.POST.get("current_city")
         profile.save()
         
+        user = User.objects.get(pk=request.user.id)
+        user.first_name = request.POST.get("first_name")
+        user.last_name = request.POST.get("last_name")
+        user.save()
+        
         return redirect(f"/profile/{pk}")
-        # user =
+
     def get(self, request, pk):
         
-        # context = {'form': form}
+
         return render(request, 'profile_update.html')
-        
-        # print("request", request)
-    
-    # def get_success_url(self):
-    #     return reverse('profile', kwargs={'pk': self.object.pk})
+
 
 class PostDetails(DetailView):
     pass
