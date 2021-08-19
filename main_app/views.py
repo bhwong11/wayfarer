@@ -7,7 +7,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse
-
+from .models import Profile
 # Create your views here.
 
 
@@ -18,7 +18,7 @@ class Home(TemplateView):
 class HomeError(TemplateView):
     template_name = 'home_error.html'
 
-class Profile(TemplateView):
+class UserProfile(TemplateView):
     template_name = 'profile.html'
 
 
@@ -45,8 +45,30 @@ class Signup(View):
             return render(request, 'registration/signup.html', context)
 
 
-class ProfileUpdate(UpdateView):
-    pass
+class ProfileUpdate(View):
+    
+    # model = Profile
+    # fields = ['image', 'current_city']
+    # template_name = "profile_update.html"
+    # success_url = "/profile/"
+    
+    def post(self, request, pk):
+        
+        profile = Profile.objects.get(pk=pk)
+        profile.image = request.POST.get("image")
+        profile.save()
+        
+        return redirect(f"/profile/{pk}")
+        # user =
+    def get(self, request, pk):
+        
+        # context = {'form': form}
+        return render(request, 'profile_update.html')
+        
+        # print("request", request)
+    
+    # def get_success_url(self):
+    #     return reverse('profile', kwargs={'pk': self.object.pk})
 
 class PostDetails(DetailView):
     pass

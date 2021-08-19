@@ -1,0 +1,15 @@
+{% extends 'base.html' %} 
+{%block title%}
+Profile Update
+{%endblock%}
+{% block content %}
+
+<form action="{% url 'profile_update' user.profile.pk%}" method="POST">
+    <input type="text" name="image"/>
+    <input type="submit" value="update"/>
+    {% csrf_token %}
+
+</form>
+
+
+{%endblock%}
