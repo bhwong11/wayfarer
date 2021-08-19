@@ -11,12 +11,14 @@ Profile Update
         <input id="first" type="text" name="first_name" value="{{user.first_name}}"/>
     {% comment %} </div> {% endcomment %}
     <label for="last">Last Name</label>
-    <input id="last" type="text" name="last_name"/>
+    <input id="last" type="text" name="last_name" value="{{user.last_name}}"/>
     <label for="image">Profile Picture</label>
-    <input id="image" type="text" name="image"/>
+    <input id="image" type="text" name="image" value="{{user.profile.image}}"/>
     <label for="city">Current City</label>
-    <input id="city" type="text" name="current_city"/>
-    <input type="submit" action="{% url 'profile_detail' user.profile.pk%}" value="Cancel"/>
+    <input id="city" type="text" name="current_city" value="{{user.profile.current_city}}"/>
+    <a href="{% url 'profile_detail' user.profile.pk%}">
+    <button>Cancel</button>
+    </a>
     <input type="submit" value="Update"/>
     {% csrf_token %}
 
