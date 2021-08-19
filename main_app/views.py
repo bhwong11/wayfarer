@@ -18,8 +18,12 @@ class Home(TemplateView):
 class HomeError(TemplateView):
     template_name = 'home_error.html'
 
-class UserProfile(TemplateView):
+class UserProfile(View):
     template_name = 'profile.html'
+    
+    def get(self, request):
+    
+        return redirect(f"/profile/{request.user.id}")
 
 
 class ProfileDetail(DetailView):
