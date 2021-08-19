@@ -1,0 +1,22 @@
+{%extends 'base.html'%}
+{%block title%}
+sign up
+{%endblock%}
+{% load crispy_forms_tags %}  
+{%block content%}
+<style>
+.form-styling form div small{
+    display: none;
+}
+</style>
+<div>{{form.errors}}</div>
+<div class = "mt-5 form-styling">
+
+<form action="{% url 'signup' %}" method="POST" class = 'bootstrap5'>
+    {% csrf_token %}
+    {{form|crispy}}
+    <input type="submit" value= "Sign Up"/>
+    <input type="hidden" name="next" value="{{next}}"/>
+</form>
+</div>
+{%endblock%}
