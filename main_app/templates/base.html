@@ -21,13 +21,6 @@
     <script defer src="{%static 'scripts/main.js'%}"></script>
     <title>{%block title%}{%endblock%}</title>
 </head>
-<style>
-.navbar-nav{
-  display:flex;
-  flex-direction: row;
-  margin: 0px 10px;
-}
-</style>
 <body>
 {% if request.path != '/accounts/login/' and request.path != '/accounts/signup/' %}
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #faf3dd;">
@@ -37,9 +30,10 @@
     Wayfare</a>
       <div class="navbar-nav">
         {% if user.is_authenticated %}
+        <a class="nav-link" href="{%url 'profile_detail' user.profile.pk%} ">My Profile</a>        
         <a class="nav-link" href="{%url 'logout'%}">Log Out</a>        
         {%else%}
-        <a class="nav-link active sign-in" aria-current="page" data-bs-toggle="modal" data-bs-target="#exampleModal">Sign In</a>
+        <a class="nav-link active sign-in" aria-current="page" data-bs-toggle="modal" data-bs-target="#exampleModal">Sign In </a>
         <a class="nav-link active sign-up" aria-current="page" data-bs-toggle="modal" data-bs-target="#exampleModal">Sign Up</a>
         {% endif %}
       </div>
