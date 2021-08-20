@@ -17,6 +17,13 @@
     <script defer src="{%static 'scripts/main.js'%}"></script>
     <title>{%block title%}{%endblock%}</title>
 </head>
+<style>
+.navbar-nav{
+  display:flex;
+  flex-direction: row;
+  margin: 0px 10px;
+}
+</style>
 <body>
 {% if request.path != '/accounts/login/' and request.path != '/accounts/signup/' %}
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #faf3dd;">
@@ -57,14 +64,7 @@
     {%endblock%}
 
 <script>
-$(document).ready( function() {
-    $(".sign-in").on("click", function() {
-        $(".modal-body").load("/accounts/login");
-    });
-    $(".sign-up").on("click", function() {
-        $(".modal-body").load("/accounts/signup");
-    });
-});
+
 </script>
 </body>
 </html>

@@ -7,7 +7,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse
-from .models import Post, Profile
+from .models import Profile
 # Create your views here.
 
 
@@ -18,12 +18,18 @@ class Home(TemplateView):
 class HomeError(TemplateView):
     template_name = 'home_error.html'
 
+
 class UserProfile(View):
     template_name = 'profile.html'
-    
+
     def get(self, request):
-    
+
         return redirect(f"/profile/{request.user.id}")
+
+
+class UpdateProfile(View):
+    def get(self, request):
+        return redirect(f"/profile/{request.user.profile.id}/update")
 
 
 class ProfileDetail(DetailView):
@@ -42,33 +48,28 @@ class Signup(View):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            Profile.objects.create(user=request.user,current_city='N/A')
-            return redirect(f'/profile/{user.id}/update/')
-            # return redirect('profile')
-            # change this to user_edit html
-        else:
             context = {'form': form}
-            return render(request, 'registration/signup.html', context)
+            Profile.objects.create(user=request.user, current_city='N/A')
+            return redirect(f'/profile/{user.profile.id}/')
 
 
 class ProfileUpdate(View):
 
     def post(self, request, pk):
-        
+
         profile = Profile.objects.get(pk=pk)
         profile.image = request.POST.get("image")
         profile.current_city = request.POST.get("current_city")
         profile.save()
-        
+
         user = User.objects.get(pk=request.user.id)
         user.first_name = request.POST.get("first_name")
         user.last_name = request.POST.get("last_name")
         user.save()
-        
+
         return redirect(f"/profile/{profile.pk}")
 
     def get(self, request, pk):
-        
 
         return render(request, 'profile_update.html')
 
