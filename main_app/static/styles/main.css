@@ -8,6 +8,7 @@ body {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    font-family: 'Josefin Sans', sans-serif;
 }
 
 .main-body {
@@ -21,4 +22,3 @@ body {
 .navbar-nav {
     background-color: #FAF3DD;
 }
-
