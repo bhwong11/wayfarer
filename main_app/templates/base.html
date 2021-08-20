@@ -17,6 +17,15 @@
     <script defer src="{%static 'scripts/main.js'%}"></script>
     <title>{%block title%}{%endblock%}</title>
 </head>
+<style>
+.navbar-nav{
+  display:flex;
+  flex-direction: row;
+}
+.navbar-nav a{
+  margin: 0 10px;
+}
+</style>
 <body>
 {% if request.path != '/accounts/login/' and request.path != '/accounts/signup/' %}
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
