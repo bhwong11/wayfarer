@@ -43,17 +43,6 @@ class Signup(View):
         if form.is_valid():
             user = form.save()
             login(request, user)
-<<<<<<< HEAD
-            #Profile.objects.create(user=request.user.id, current_city='N/A')
-            #return redirect(f'/profile/{user.profile.id}/')
-            return redirect('profile')
-=======
-            Profile.objects.create(user=request.user,current_city='N/A')
-            return redirect(f'/profile/{user.id}/update/')
-            # return redirect('profile')
->>>>>>> dev
-            # change this to user_edit html
-        else:
             context = {'form': form}
             return render(request, 'registration/signup.html', context)
 
@@ -71,13 +60,8 @@ class ProfileUpdate(View):
         user.first_name = request.POST.get("first_name")
         user.last_name = request.POST.get("last_name")
         user.save()
-<<<<<<< HEAD
 
-        return redirect(f"/profile/{pk}")
-=======
-        
         return redirect(f"/profile/{profile.pk}")
->>>>>>> dev
 
     def get(self, request, pk):
 
