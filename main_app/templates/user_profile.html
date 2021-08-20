@@ -68,7 +68,7 @@ profile
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">#</th>
+                {% comment %} <th scope="col">#</th> {% endcomment %}
                 <th scope="col">Title</th>
                 <th scope="col">Content</th>
                 <th scope="col">Post Created</th>
@@ -78,8 +78,8 @@ profile
     <tbody>
     {% for post in user.posts.all%}
         <tr>
-            <th scope="row">1</th>
-            <td>{{post.title}}</td>
+            {% comment %} <th scope="row">1</th> {% endcomment %}
+            <td><a class="link-dark text-decoration-none" href="{% url 'post_details' post.pk %}">{{post.title}}</a></td>
             <td>{{post.content}}</td>
             <td>{{post.created_at}}</td>
             <td>
