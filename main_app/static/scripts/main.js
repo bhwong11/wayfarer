@@ -52,3 +52,6 @@ $(document).ready( function() {
         //end
     });
 });
+if(window.location.pathname==='/accounts/login/' || window.location.pathname==='/accounts/signup/'){
+    window.location.replace("/");
+}
