@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}
+Post View
+{% endblock %}
+
+{% block content %}
+
+<div class="carousel-inner" style="max-height: 800px">
+        <div class="carousel-item active">
+            <img src="{{post.image}}" class="d-block w-100" alt="...">
+        </div>
+
+<div class="content_container container">
+    <div class="city_title display-4 mt-3"> City </div>
+    <div class="row mt-3">
+        <p>{{post.created_at}}</p>
+    </div>
+    <div class="row mt-3">
+        <p>{{post.content}}
+        </p>
+    </div>
+</div>
+></div>
+{% endblock content %}
