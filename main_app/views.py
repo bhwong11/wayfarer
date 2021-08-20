@@ -27,6 +27,11 @@ class UserProfile(View):
         return redirect(f"/profile/{request.user.id}")
 
 
+class UpdateProfile(View):
+    def get(self, request):
+        return redirect(f"/profile/{request.user.profile.id}/update")
+
+
 class ProfileDetail(DetailView):
     model = User
     template_name = 'user_profile.html'
@@ -44,7 +49,8 @@ class Signup(View):
             user = form.save()
             login(request, user)
             context = {'form': form}
-            return render(request, 'registration/signup.html', context)
+            Profile.objects.create(user=request.user, current_city='N/A')
+            return redirect(f'/profile/{user.profile.id}/')
 
 
 class ProfileUpdate(View):

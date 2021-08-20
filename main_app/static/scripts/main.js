@@ -41,8 +41,10 @@ $(document).ready( function() {
                 csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
             },
             success:function(resultData){
+                console.log(resultData)
                 if(String(resultData).includes('Profile')){
-                    window.location.replace("/profile");
+                    console.log('hit route')
+                    window.location.replace("/profileupdate");
                   }else{
                   $(".modal-body").html(resultData)
                     }
