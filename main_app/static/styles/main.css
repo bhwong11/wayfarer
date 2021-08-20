@@ -8,3 +8,25 @@ body {background: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAA
     -o-background-size: cover;
     background-size: cover;
 }
+
+
+
+
+/*  Posts Detail Page  */
+
+
+.image_container {
+    display: flex;
+    justify-content: center
+}
+
+.img_details {
+    max-height: 65vh;
+    max-width: auto;
+    border-radius: 12px;
+}
+
+.content_container {
+    justify-content: center;
+}
+

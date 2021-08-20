@@ -7,7 +7,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse
-from .models import Profile
+from .models import Profile, Post
 # Create your views here.
 
 
@@ -72,4 +72,7 @@ class ProfileUpdate(View):
 
 
 class PostDetails(DetailView):
-    pass
+    model = Post
+    template_name = 'post_details.html'
+
+
