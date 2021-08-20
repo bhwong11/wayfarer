@@ -51,6 +51,9 @@ class Signup(View):
             context = {'form': form}
             Profile.objects.create(user=request.user, current_city='N/A')
             return redirect(f'/profile/{user.profile.id}/')
+        else:
+            context = {'form': form}
+            return render(request, "registration/signup.html", context)
 
 
 class ProfileUpdate(View):
@@ -75,4 +78,5 @@ class ProfileUpdate(View):
 
 
 class PostDetails(DetailView):
-    pass
+    model = Post
+    template_name = "post_details.html"
