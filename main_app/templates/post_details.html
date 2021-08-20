@@ -5,22 +5,19 @@ Post View
 
 {% block content %}
 
-<div class="post_container">
-<div class="image_container container mt-4">
-    <div class="row">
-        <div class="post_image col l-5">
-            <img src="https://cdn.britannica.com/68/95568-050-A0955C0F/Palace-of-Diocletian-Split-Croatia.jpg" class="img_details"  alt="...">
+<div class="carousel-inner" style="max-height: 800px">
+        <div class="carousel-item active">
+            <img src="{{post.image}}" class="d-block w-100" alt="...">
         </div>
+
+<div class="content_container container">
+    <div class="city_title display-4 mt-3"> City </div>
+    <div class="row mt-3">
+        <p>{{post.created_at}}</p>
     </div>
-    </div>
-    <div class="content_container container">
-        <div class="city_title display-4 mt-3"> City </div>
-        <div class="row mt-3">
-            <p>Post Created at</p>
-        </div>
-        <div class="row mt-3">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est esse perferendis tempore architecto, soluta nesciunt eveniet sequi qui maxime neque mollitia labore aut nisi molestiae, iste, unde aliquid vel sapiente! 
-            </p>
+    <div class="row mt-3">
+        <p>{{post.content}}
+        </p>
     </div>
 </div>
 ></div>
