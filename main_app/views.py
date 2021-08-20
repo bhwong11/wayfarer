@@ -75,4 +75,5 @@ class ProfileUpdate(View):
 
 
 class PostDetails(DetailView):
-    pass
+    model = Post
+    template_name = "post_details.html"
