@@ -36,7 +36,7 @@ $(document).ready( function() {
             data:
             {
                 username:$("#id_username").val(),
-                password:$("#id_password1").val(),
+                password1:$("#id_password1").val(),
                 password2:$("#id_password2").val(),
                 csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
             },

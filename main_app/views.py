@@ -18,11 +18,12 @@ class Home(TemplateView):
 class HomeError(TemplateView):
     template_name = 'home_error.html'
 
+
 class UserProfile(View):
     template_name = 'profile.html'
-    
+
     def get(self, request):
-    
+
         return redirect(f"/profile/{request.user.id}")
 
 
@@ -42,6 +43,8 @@ class Signup(View):
         if form.is_valid():
             user = form.save()
             login(request, user)
+            #Profile.objects.create(user=request.user.id, current_city='N/A')
+            #return redirect(f'/profile/{user.profile.id}/')
             return redirect('profile')
             # change this to user_edit html
         else:
@@ -52,21 +55,20 @@ class Signup(View):
 class ProfileUpdate(View):
 
     def post(self, request, pk):
-        
+
         profile = Profile.objects.get(pk=pk)
         profile.image = request.POST.get("image")
         profile.current_city = request.POST.get("current_city")
         profile.save()
-        
+
         user = User.objects.get(pk=request.user.id)
         user.first_name = request.POST.get("first_name")
         user.last_name = request.POST.get("last_name")
         user.save()
-        
+
         return redirect(f"/profile/{pk}")
 
     def get(self, request, pk):
-        
 
         return render(request, 'profile_update.html')
 
