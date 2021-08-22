@@ -4,20 +4,17 @@
 {% block content %}
 
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    
 <div class="container">
 <div class="row">
   <div class="display-3 text-decoration-underline  mb-3">{{post.title}}</div>
 </div>
-    <article class="row single-post mt-5 no-gutters">
+    <article class="row single-post mt-3 no-gutters">
         <div class="col-md-12">
-            <div class="image-wrapper float-left pr-3">
-                <img src="{{post.image}}" style= "max-width:50vh" alt="">
-            </div>
+            <div class="clearfix">
+                <img src="{{post.image}}" class="col-md-6 float-md-start m-3" alt="...">
             <div class="single-post-content-wrapper">
-                  <p class = "fs-3 mt-5"> Lorem lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate quidem totam, laborum esse expedita modi. Aperiam quia ut, temporibus nam repudiandae ad architecto magni maiores maxime. Dolorem vero dicta quisquam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil ad, ex eaque fuga minus reprehenderit asperiores earum incidunt. Possimus maiores dolores voluptatum enim soluta omnis debitis quam ab nemo necessitatibus. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  </p>  
+                  <article class = "fs-3">lorem lorem ipsum dolor sit amet, consectetur adiplorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate quidem totam, laborum esse expedita modi. Aperiam quia ut, temporibus nam repudiandae ad architecto magni maiores maxime. Dolorem vero dicta quisquam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil ad, ex eaque fuga minus reprehenderit asperiores earum incidunt. Possimus maiores dolores voluptatum enim soluta omnis debitis quam ab nemo necessitatibus. Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                  </article>  
                   <p class = "fs-3 mt-5"> Nihil ad, ex eaque fuga minus reprehenderit asperiores earum incidunt. Possimus maiores dolores voluptatum enim soluta omnis debitis quam ab nemo necessitatibus. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem vitae accusantium quisquam officiis reiciendis dolore dolorem maiores ipsum eveniet eaque harum voluptates, autem minima? Fuga itaque veniam quibusdam magnam nisi!
                   </p>
                   <div class="card float-end mb-3" style="max-width: 400px;">
