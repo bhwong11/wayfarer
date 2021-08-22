@@ -29,22 +29,20 @@ class UserProfile(View):
 
 class UpdateProfile(View):
     def get(self, request):
-        return redirect(f"/profile/{request.user.id}/update")
+        return redirect(f"/profile/{request.user.profile.slug}/update")
 
 
 class ProfileDetail(DetailView):
     model = Profile
     template_name = 'user_profile.html'
-    context_object_name = "details"
-    slug = self.kwargs.get(self.slug_url_kwarg, None)
-    slug_url_kwarg = "not_slug"  # this attribute
-
-    def get_queryset(self):
-        print self.kwargs['slug']
-        a = User.objects.get(slug=self.kwargs['slug'])
-        # print Details.object.get()
-        # print Detail.objects.filter(article__slug=self.kwargs['slug']) fails with same error
-        return User.objects.filter(=a)
+#    context_object_name = "details"
+#    slug = self.kwargs.get(self.slug_url_kwarg, None)
+#    slug_url_kwarg = "not_slug"  # this attribute
+#
+#    def get_queryset(self):
+#        print self.kwargs['slug']
+#        a = User.objects.get(slug=self.kwargs['slug'])
+#        return User.objects.filter(article=a)
 
 
 class Signup(View):
@@ -61,7 +59,7 @@ class Signup(View):
             context = {'form': form}
             Profile.objects.create(
                 user=request.user, current_city='N/A')
-            return redirect(f'/profile/{user.profile.slug}/')
+            return redirect(f'/profile/{user.slug}/')
         else:
             context = {'form': form}
             return render(request, "registration/signup.html", context)
