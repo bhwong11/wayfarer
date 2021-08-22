@@ -8,7 +8,7 @@ body {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    font-family: 'Inria Serif', serif;
+    font-family: 'Josefin Sans', sans-serif;
 }
 
 .main-body {
@@ -26,14 +26,7 @@ body {
 
 
 
-/* article::first-letter {
--webkit-initial-letter: 4 1;
-        initial-letter: 4 1;
-color: orange;
-font-weight: bold;
-margin-right: .10em;
-font-size: 150px;
-}  */
+
 
 
 
