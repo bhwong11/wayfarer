@@ -1,11 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.db.models import Model, CharField, ManyToManyField, ImageField, OneToOneField, TextField, DateTimeField, ForeignKey
+from django.db.models import Model, CharField, ManyToManyField, ImageField, OneToOneField, TextField, DateTimeField, ForeignKey, SlugField
 from django.db.models.deletion import CASCADE
 from django.db.models.fields import IntegerField
 from django.db.models.fields.related import ForeignKey
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 # Create your models here.
 
@@ -30,3 +31,16 @@ class Post(Model):
 
     def __str__(self):
         return self.title
+
+
+class City(Model):
+    name = CharField(max_length=300)
+    image = CharField(max_length=500)
+    country = CharField(max_length=300)
+    slug = models.SlugField(null=False, unique=True)
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('city_detail', kwargs={'slug': self.slug})
