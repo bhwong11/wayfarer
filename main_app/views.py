@@ -29,7 +29,7 @@ class UserProfile(View):
 
 class UpdateProfile(View):
     def get(self, request):
-        return redirect(f"/profile/{request.user.profile.id}/update")
+        return redirect(f"/profile/{request.user.id}/update")
 
 
 class ProfileDetail(DetailView):
