@@ -1,8 +1,9 @@
 {%extends 'base.html'%}
+{% load static %}
 {%block title%}Wayfare{%endblock%}
 
 {%block content%}
-
+<script defer src="{% static 'scripts/auth_modal.js' %}" defer></script>
 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner" style="max-height: 800px; !important">
         <div class="carousel-item active">
