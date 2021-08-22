@@ -24,7 +24,7 @@ class UserProfile(View):
 
     def get(self, request):
 
-        return redirect(f"/profile/{request.user.id}")
+        return redirect(f"/profile/{request.user.profile.slug}")
 
 
 class UpdateProfile(View):
@@ -33,8 +33,18 @@ class UpdateProfile(View):
 
 
 class ProfileDetail(DetailView):
-    model = User
+    model = Profile
     template_name = 'user_profile.html'
+    context_object_name = "details"
+    slug = self.kwargs.get(self.slug_url_kwarg, None)
+    slug_url_kwarg = "not_slug"  # this attribute
+
+    def get_queryset(self):
+        print self.kwargs['slug']
+        a = User.objects.get(slug=self.kwargs['slug'])
+        # print Details.object.get()
+        # print Detail.objects.filter(article__slug=self.kwargs['slug']) fails with same error
+        return User.objects.filter(=a)
 
 
 class Signup(View):
@@ -49,8 +59,9 @@ class Signup(View):
             user = form.save()
             login(request, user)
             context = {'form': form}
-            Profile.objects.create(user=request.user, current_city='N/A')
-            return redirect(f'/profile/{user.profile.id}/')
+            Profile.objects.create(
+                user=request.user, current_city='N/A')
+            return redirect(f'/profile/{user.profile.slug}/')
         else:
             context = {'form': form}
             return render(request, "registration/signup.html", context)
@@ -58,9 +69,9 @@ class Signup(View):
 
 class ProfileUpdate(View):
 
-    def post(self, request, pk):
+    def post(self, request, slug):
 
-        profile = Profile.objects.get(pk=pk)
+        profile = Profile.objects.get(slug=slug)
         profile.image = request.POST.get("image")
         profile.current_city = request.POST.get("current_city")
         profile.save()
@@ -70,9 +81,9 @@ class ProfileUpdate(View):
         user.last_name = request.POST.get("last_name")
         user.save()
 
-        return redirect(f"/profile/{profile.pk}")
+        return redirect(f"/profile/{profile.slug}")
 
-    def get(self, request, pk):
+    def get(self, request, slug):
 
         return render(request, 'profile_update.html')
 

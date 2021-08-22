@@ -7,6 +7,7 @@ from django.db.models.fields import IntegerField
 from django.db.models.fields.related import ForeignKey
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.template.defaultfilters import slugify
 
 # Create your models here.
 
@@ -16,9 +17,18 @@ class Profile(Model):
     image = CharField(
         max_length=500, default='https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg')
     current_city = CharField(max_length=300)
+    slug = models.SlugField(null=True, unique=False)
 
     def __str__(self):
         return self.user.username
+
+    def get_absolute_url(self):
+        return reverse('profile_detail', kwargs={'slug': self.slug})
+
+    def save(self, *args, **kwargs):  # new
+        if not self.slug:
+            self.slug = slugify(self.user.username)
+        return super().save(*args, **kwargs)
 
 
 class Post(Model):

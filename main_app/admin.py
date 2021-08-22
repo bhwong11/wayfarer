@@ -10,6 +10,11 @@ class CityAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
 
 
-admin.site.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'image', 'current_city',)
+    prepopulated_fields = {'slug': ('user',)}
+
+
+admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Post)
-admin.site.register(City,CityAdmin)
+admin.site.register(City, CityAdmin)
