@@ -77,9 +77,51 @@ class ProfileUpdate(View):
         return render(request, 'profile_update.html')
 
 
+class PostCreate(View):
+    def get(self, request):
+        context = {'cities': City.objects.all()}
+        return render(request, 'post_create.html', context)
+
+    def post(self, request):
+        title = request.POST.get('title')
+        content = request.POST.get('content')
+        cities = City.objects.get(pk=request.POST.get('cities'))
+        user = request.user
+        new_post = Post.objects.create(
+            title=title, content=content, image='https://cdn.britannica.com/68/95568-050-A0955C0F/Palace-of-Diocletian-Split-Croatia.jpg', cities=cities, users=user)
+        return redirect(f"/cities/{cities.pk}")
+
+
+class PostUpdate(UpdateView):
+    def get(self, request, pk):
+        context = {'cities': City.objects.all(
+        ), 'post': Post.objects.get(pk=pk)}
+        return render(request, 'post_update.html', context)
+
+    def post(self, request, pk):
+        title = request.POST.get('title')
+        content = request.POST.get('content')
+        cities = City.objects.get(pk=request.POST.get('cities'))
+        Post.objects.filter(pk=pk).update(
+            title=title, content=content, image='https://cdn.britannica.com/68/95568-050-A0955C0F/Palace-of-Diocletian-Split-Croatia.jpg', cities=cities)
+        return redirect(f"/posts/{pk}")
+
+
+class PostDelete(View):
+    def get(self, request, pk):
+        context = {'cities': City.objects.all(
+        ), 'post': Post.objects.get(pk=pk)}
+        return render(request, 'post_delete.html', context)
+
+    def post(self, request, pk):
+        post = Post.objects.get(pk=pk)
+        deletedPost = Post.objects.filter(pk=pk).delete()
+        return redirect(f"/cities/{post.cities.pk}")
+
+
 class PostDetails(DetailView):
     model = Post
-    template_name = "post_details.html"
+    template_name = 'post_details.html'
 
 
 class CityDetailView(DetailView):
