@@ -32,19 +32,13 @@ body {
 }
 
 .carousel-inner {
-
     max-height: 700px;
     }
 
-#update_photo {
-    display:flex;
-    }
 
-.card {
+form {
     justify-content: center;
 }
-
-
 
 
 
