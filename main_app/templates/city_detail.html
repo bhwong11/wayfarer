@@ -24,17 +24,29 @@
 </div>
 <div class="container">
 {% for post in city.posts.all %}
-
-  <div class="row border m-3">
-      <div class="col-2">
-      <img class="img-fluid" src="{{post.users.profile.image}}" alt="">
+  <div class="row m-3 rounded-3" style="background-color: #aed9e0;">
+      <div class="col-2 p-0">
+      <img class="img-fluid rounded m-1" style="border: 5px solid black;" src="{{post.users.profile.image}}" alt="">
       </div>
       <div class="col-10">
         <h5 class="text-decoration-underline">{{post.title}}</h5>
-        <p>{{post.content}}</p>
+  {% if post.content|length > 1000 %}
+        <p class="half-content" id="half-{{post.id}}">{{ post.content|truncatechars:1000 }}<a data-id="{{post.id}}" href="javascript:void();" class="show-hide-btn text-decoration-none" style="color: #5e6472;">read more</a></p>
+        <p class="full-content" id="full-{{post.id}}" style="display: none;">{{ post.content }}<a data-id="{{post.id}}" href="javascript:void();" class="show-hide-btn text-decoration-none">read less</a></p>
+  {% else %}
+        <p>{{ post.content }}</p>
+    {% endif %}
       </div>  
   </div>
 
 {% endfor %}
-
+<script>
+$(document).ready(function() {
+  $(".show-hide-btn").click(function() {
+    var id = $(this).data("id");
+    $("#half-" + id).toggle();//hide/show..
+    $("#full-" + id).toggle();
+  })
+})
+</script>
 {%endblock%}
