@@ -3,44 +3,45 @@
 Post Create
 {%endblock%}
 {%block content%}
+<style>
+.modal-body form{
+    display:grid;
+}
+</style>
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createPostModal">
   Launch demo modal
 </button>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="createPostModal" tabindex="-1" aria-labelledby="createPostModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+      <div class="modal-header border-0 mb-0">
+        <h2 class = "mt-2">Create Post</h2>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        hello
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
         <form action="{%url 'post_create'%}" method='POST'>
         {% csrf_token %}
-        <label for="post-title">title</label>
-        <input id = "post-title" type="text" name = 'title'>
-        <label for="post-content">content</label>
-        <textarea name="content" id="post-content" cols="30" rows="10"></textarea>
-        <label for="post-cities">city</label>
-        <select name="cities" id="post-cities">
+        <label for="post-cities" class = "mb-1">city</label>
+        <select class = "mb-3" name="cities" id="post-cities">
         {%for city in cities%}
         <option value="{{city.pk}}">{{city.name}}</option>
         {%empty%}
         <option>no cities</option>
         {%endfor%}
         </select>
-        <input type="submit" value = "submit">
+        <label  class = "mb-1" for="post-title">title</label>
+        <input class = "mb-3" id = "post-title" type="text" name = 'title'>
+        <label class = "mb-1" for="post-content">content</label>
+        <textarea class = "mb-3" name="content" id="post-content" cols="30" rows="10"></textarea>
+        <input class = "mb-3 btn btn-outline-secondary" type="submit" value = "submit">
         </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+        
 {%endblock%}
