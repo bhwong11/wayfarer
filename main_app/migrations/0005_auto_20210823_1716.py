@@ -11,10 +11,15 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        migrations.AlterModelOptions(
+            name='post',
+            options={'ordering': ['created_at']},
+        ),
         migrations.AddField(
             model_name='post',
             name='cities',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='posts', to='main_app.city'),
+            field=models.ForeignKey(
+                default=1, on_delete=django.db.models.deletion.CASCADE, related_name='posts', to='main_app.city'),
             preserve_default=False,
         ),
         migrations.AlterField(
