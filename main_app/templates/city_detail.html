@@ -17,7 +17,7 @@
   color:black;
 }
 .post-create-btn:visited {
-  color: green;
+  color:#5E6472;
 }
 </style>
 
@@ -64,6 +64,49 @@ add_circle_outline
   {% else %}
         <p>{{ post.content }}</p>
     {% endif %}
+  <!--Modal and button start-->
+  <!-- Button trigger modal -->
+<a href='#' class=" text-decoration-none" data-bs-toggle="modal" data-bs-target="#{{post.title}}EditModal">
+<span class="material-icons">
+edit
+</span>
+</a>
+</div>
+
+<!-- Modal Post Edit Start -->
+    <div class="modal fade" id="{{post.title}}EditModal" tabindex="-1" aria-labelledby="{{post.title}}EditModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header border-0 mb-0">
+        <h2 class = "mt-2">Edit Post</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{%url 'post_update' post.pk%}" method='POST'>
+        {% csrf_token %}
+        <label for="post-title">title</label>
+        <input id = "post-title" type="text" name = 'title' value = {{post.title}}>
+        <label for="post-content">content</label>
+        <textarea name="content" id="post-content" cols="30" rows="10">{{post.content}}</textarea>
+        <label for="post-cities">city</label>
+        <select name="cities" id="post-cities">
+        {%for city in cities%}
+        {%if city.pk == post.cities.pk%}
+        <option selected value="{{city.pk}}">{{city.name}}</option>
+        {%else%}
+        <option value="{{city.pk}}">{{city.name}}</option>
+        {%endif%}
+        {%empty%}
+        <option>no cities</option>
+        {%endfor%}
+        </select>
+        <input type="submit" value = "submit">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!--modal post Edit end-->
       </div>  
   </div>
 
@@ -94,21 +137,6 @@ add_circle_outline
         <textarea class = "mb-3" name="content" id="post-content" cols="30" rows="10"></textarea>
         <input class = "mb-3 btn btn-outline-secondary" type="submit" value = "submit">
         </form>
-      </div>
-    </div>
-  </div>
-</div>
-<!--modal post create end-->
-<!-- Modal Post Create Start -->
-<div class="modal fade" id="createPostModal" tabindex="-1" aria-labelledby="createPostModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header border-0 mb-0">
-        <h2 class = "mt-2">Edit Post</h2>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        
       </div>
     </div>
   </div>
