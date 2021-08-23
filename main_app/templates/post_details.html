@@ -4,33 +4,33 @@
 {% block content %}
 
 
-<div class="container">
+<div class="container mt-5">
 <div class="row">
-  <div class="display-3 text-decoration-underline  mb-3">{{post.title}}</div>
+  <div class="mb-3">
+    <h1 style="font-size: 40px;" class="text-decoration-underline">{{post.title}}</h1>
+    <h3>{{post.cities.name}}</h3>
+  </div>
 </div>
     <article class="row single-post mt-3 no-gutters">
         <div class="col-md-12">
-            <div class="clearfix">
-                <img src="{{post.image}}" class="col-md-6 float-md-start m-3" alt="...">
             <div class="single-post-content-wrapper">
-                  <article class = "fs-3">{{post.content}}</article>  
-                  <div class="card float-end mb-3" style="max-width: 400px;">
-                    <div class="row no-gutters">
-                      <div class="col-md-4">
-                        <img src="{{user.profile.image}}" class="card-img" alt="...">
-                      </div>
-                      <div class="col-md-8">
-                        <div class="card-body float-end mt-3">Created by: {{post.users.username}}
+                  <article class="fs-5">
+                  {{post.content}}
+                  </article>
+
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-12">
+                          <div class="card-body float-end mt-3">
                           <div class="row mt-2 ms-2">
-                          <p>{{post.created_at}}</p>
+                          <p>Created by: <a style="color: black;" href="{% url "profile_detail" post.users.pk %}">{{post.users.username}}</a> -- {{post.created_at}}</p>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div> 
-            </div>
+            
         </div>
     </article>
 </div>
 {% endblock content %}
-
