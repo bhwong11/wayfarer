@@ -89,7 +89,7 @@ class PostCreate(View):
         user = request.user
         new_post = Post.objects.create(
             title=title, content=content, image='https://cdn.britannica.com/68/95568-050-A0955C0F/Palace-of-Diocletian-Split-Croatia.jpg', cities=cities, users=user)
-        return redirect(f"/posts/{new_post.pk}")
+        return redirect(f"/cities/{cities.pk}")
 
 
 class PostUpdate(UpdateView):
@@ -114,8 +114,9 @@ class PostDelete(View):
         return render(request, 'post_delete.html', context)
 
     def post(self, request, pk):
-        Post.objects.filter(pk=pk).delete()
-        return redirect(f"/profile/")
+        post = Post.objects.get(pk=pk)
+        deletedPost = Post.objects.filter(pk=pk).delete()
+        return redirect(f"/cities/{post.cities.pk}")
 
 
 class PostDetails(DetailView):
