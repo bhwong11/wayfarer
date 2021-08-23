@@ -3,6 +3,16 @@
 {{city.name}}
 {%endblock%}
 {%block content%}
-<h1>CITY!!</h1>
-{{city.name}}
+<h1>{{city.name}}</h1>
+
+<img src="{{city.image}}" alt="{{city.name}}">
+
 {%endblock%}
+
+{% for post in city.posts %}
+<ul>
+<li>{{post.title}}</li>
+<li><img src="{{post.image}}" alt="{{post.title}}"></li>
+<li>{{post.content}}</li>
+</ul>
+{% endfor %}
