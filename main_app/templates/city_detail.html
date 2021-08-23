@@ -3,33 +3,91 @@
 {{city.name}}
 {%endblock%}
 {%block content%}
-
-
+<style>
+.modal-body form{
+    display:grid;
+}
+.material-icons.md-36 { 
+  font-size: 33px; 
+  }
+.post-create-btn{
+  color:#5E6472;
+}
+.post-create-btn:hover {
+  color:black;
+}
+.post-create-btn:visited {
+  color: green;
+}
+</style>
 
 <div class="container">
+<div class="container">
   <div class="row">
-    <div class="col-4">
+    <div class="col-4 ps-4">
       <h2 class="fw-bolder">{{city.name}}</h2>
       <h4>{{city.country}}</h3>
     </div>
-    <div class="col-8">
-      <img class="img-fluid rounded" src="{{city.image}}" alt="{{city.name}}">
+    <div class="col-8 pe-4">
+      <img class="img-fluid rounded me-2" src="{{city.image}}" alt="{{city.name}}">
     </div>
   </div>
 </div>
 
 
-<div class="container">
+<div class="container ps-4">
+<div class="d-flex justify-content-between p-3">
   <h3>Posts</h3>
+  <!--Modal and button start-->
+  <!-- Button trigger modal -->
+<a href='#' class="post-create-btn  text-decoration-none" data-bs-toggle="modal" data-bs-target="#createPostModal">
+<span class="material-icons md-36">
+add_circle_outline
+</span>
+</a>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="createPostModal" tabindex="-1" aria-labelledby="createPostModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header border-0 mb-0">
+        <h2 class = "mt-2">Create Post</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{%url 'post_create'%}" method='POST'>
+        {% csrf_token %}
+        <label for="post-cities" class = "mb-1">city</label>
+        <select class = "mb-3" name="cities" id="post-cities">
+        {%for city in cities%}
+        <option value="{{city.pk}}">{{city.name}}</option>
+        {%empty%}
+        <option>no cities</option>
+        {%endfor%}
+        </select>
+        <label  class = "mb-1" for="post-title">title</label>
+        <input class = "mb-3" id = "post-title" type="text" name = 'title'>
+        <label class = "mb-1" for="post-content">content</label>
+        <textarea class = "mb-3" name="content" id="post-content" cols="30" rows="10"></textarea>
+        <input class = "mb-3 btn btn-outline-secondary" type="submit" value = "submit">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+  <!--Modal and Button End-->
+
+
 </div>
 <div class="container">
 {% for post in city.posts.all %}
-  <div class="row m-3 rounded-3" style="background-color: #aed9e0;">
+  <div class="row m-3 rounded-3" style=" background-image: url('https://tierrasuratherzog.com/wp-content/uploads/2019/05/TS-Wedding-Paper-BG.jpg');">
       <div class="col-2 p-0">
       <img class="img-fluid rounded m-1" style="border: 5px solid black;" src="{{post.users.profile.image}}" alt="">
       </div>
       <div class="col-10">
-        <h5 class="text-decoration-underline">{{post.title}}</h5>
+          <a style="color: black;" href="{% url "post_details" post.pk %} "><h5 style="color: black;" >{{post.title}}</h5></a>
   {% if post.content|length > 1000 %}
         <p class="half-content" id="half-{{post.id}}">{{ post.content|truncatechars:1000 }}<a data-id="{{post.id}}" href="javascript:void();" class="show-hide-btn text-decoration-none" style="color: #5e6472;"><br>Read More</a></p>
         <p class="full-content" id="full-{{post.id}}" style="display: none;">{{ post.content }}<a data-id="{{post.id}}" href="javascript:void();" class="show-hide-btn text-decoration-none" style="color: #5e6472;"><br>Read Less</a></p>
@@ -40,6 +98,7 @@
   </div>
 
 {% endfor %}
+</div>
 <script>
 $(document).ready(function() {
   $(".show-hide-btn").click(function() {
