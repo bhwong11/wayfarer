@@ -31,8 +31,8 @@
       <div class="col-10">
         <h5 class="text-decoration-underline">{{post.title}}</h5>
   {% if post.content|length > 1000 %}
-        <p class="half-content" id="half-{{post.id}}">{{ post.content|truncatechars:1000 }}<a data-id="{{post.id}}" href="javascript:void();" class="show-hide-btn text-decoration-none" style="color: #5e6472;">read more</a></p>
-        <p class="full-content" id="full-{{post.id}}" style="display: none;">{{ post.content }}<a data-id="{{post.id}}" href="javascript:void();" class="show-hide-btn text-decoration-none">read less</a></p>
+        <p class="half-content" id="half-{{post.id}}">{{ post.content|truncatechars:1000 }}<a data-id="{{post.id}}" href="javascript:void();" class="show-hide-btn text-decoration-none" style="color: #5e6472;"><br>Read More</a></p>
+        <p class="full-content" id="full-{{post.id}}" style="display: none;">{{ post.content }}<a data-id="{{post.id}}" href="javascript:void();" class="show-hide-btn text-decoration-none" style="color: #5e6472;"><br>Read Less</a></p>
   {% else %}
         <p>{{ post.content }}</p>
     {% endif %}
