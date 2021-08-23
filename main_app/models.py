@@ -21,18 +21,6 @@ class Profile(Model):
         return self.user.username
 
 
-class Post(Model):
-    title = CharField(max_length=300)
-    content = TextField(max_length=500)
-    image = CharField(max_length=500)
-    created_at = DateTimeField(auto_now_add=True)
-    users = ForeignKey(User, on_delete=CASCADE, related_name='posts')
-    #cities = ForeignKey(City,on_delete=CASCADE, related_name='posts')
-
-    def __str__(self):
-        return self.title
-
-
 class City(Model):
     name = CharField(max_length=300)
     image = CharField(max_length=500)
@@ -44,3 +32,18 @@ class City(Model):
 
     def get_absolute_url(self):
         return reverse('city_detail', kwargs={'slug': self.slug})
+
+
+class Post(Model):
+    title = CharField(max_length=200)
+    content = TextField(max_length=2000)
+    image = CharField(max_length=500)
+    created_at = DateTimeField(auto_now_add=True)
+    users = ForeignKey(User, on_delete=CASCADE, related_name='posts')
+    cities = ForeignKey(City, on_delete=CASCADE, related_name='posts')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['created_at']

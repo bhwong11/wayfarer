@@ -85,3 +85,8 @@ class PostDetails(DetailView):
 class CityDetailView(DetailView):
     model = City
     template_name = 'city_detail.html'
+
+
+class CityDetail(DetailView):
+    model = City
+    template_name = 'city_detail.html'
