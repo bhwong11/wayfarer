@@ -1,19 +1,21 @@
 {%extends 'base.html'%}
 {% load static %}
-{%block title%}Wayfare{%endblock%}
+{%block title%}Wayfarer{%endblock%}
 
 {%block content%}
 <script defer src="{% static 'scripts/auth_modal.js' %}" defer></script>
+
+<div class="container-x-lg">
 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner" style="max-height: 800px; !important">
+    <div class="carousel-inner" >
         <div class="carousel-item active">
-            <img src="https://cdn.britannica.com/68/95568-050-A0955C0F/Palace-of-Diocletian-Split-Croatia.jpg" class="d-block w-100" alt="...">
+            <img src="https://images.pexels.com/photos/161798/stonehenge-architecture-history-monolith-161798.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" class="d-block w-100" alt="...">
         </div>
         <div class="carousel-item">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Machu_Picchu%2C_Peru.jpg/1200px-Machu_Picchu%2C_Peru.jpg" class="d-block w-100" alt="...">
+            <img src="https://cdn.theculturetrip.com/wp-content/uploads/2021/05/gp9ne3-e1620984804354.jpg" class="d-block w-100" alt="...">
         </div>
         <div class="carousel-item">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Colosseo_2020.jpg/1200px-Colosseo_2020.jpg" class="d-block w-100" alt="...">
+            <img src="https://www.go-today.com/stw/images/hero-images/package-hero-images/italy/rome-trevi-fountain.jpg" class="d-block w-100" alt="">
         </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
@@ -25,6 +27,8 @@
         <span class="visually-hidden">Next</span>
     </button>
 </div>
+</div>
+
 <div class="d-flex justify-content-center display-4 m-5">
     <h2 class="fs-1" style="font-family: 'Oleo Script', cursive;">Wayfarer is ...</h2>
 </div>
