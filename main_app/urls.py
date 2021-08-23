@@ -10,6 +10,7 @@ urlpatterns = [
          views.ProfileUpdate.as_view(), name="profile_update"),
     path('accounts/signup/', views.Signup.as_view(), name='signup'),
     path('regerror/', views.HomeError.as_view(), name='reg_error'),
-    path('posts/<int:pk>/', views.PostDetails.as_view(), name='post_details')
+    path('posts/<int:pk>/', views.PostDetails.as_view(), name='post_details'),
+    path('cities/<slug:slug>/', views.CityDetailView.as_view(), name='city_detail'),
     # put urls here
 ]
