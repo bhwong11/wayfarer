@@ -3,6 +3,38 @@
 {{city.name}}
 {%endblock%}
 {%block content%}
-<h1>CITY!!</h1>
-{{city.name}}
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-4">
+      <h2 class="fw-bolder">{{city.name}}</h2>
+      <h4>{{city.country}}</h3>
+    </div>
+    <div class="col-8">
+      <img class="img-fluid rounded" src="{{city.image}}" alt="{{city.name}}">
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <h3>Posts</h3>
+</div>
+<div class="container">
+{% for post in city.posts.all %}
+
+  <div class="row border m-3">
+      <div class="col-2">
+      <img class="img-fluid" src="{{post.users.profile.image}}" alt="">
+      </div>
+      <div class="col-10">
+        <h5 class="text-decoration-underline">{{post.title}}</h5>
+        <p>{{post.content}}</p>
+      </div>  
+  </div>
+
+{% endfor %}
+
 {%endblock%}
