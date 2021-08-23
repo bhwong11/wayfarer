@@ -1,0 +1,22 @@
+{%extends 'base.html'%}
+{%block title%}
+Post Create
+{%endblock%}
+{%block content%}
+<form action="{%url 'post_create'%}" method='POST'>
+{% csrf_token %}
+<label for="post-title">title</label>
+<input id = "post-title" type="text" name = 'title'>
+<label for="post-content">content</label>
+<textarea name="content" id="post-content" cols="30" rows="10"></textarea>
+<label for="post-cities">city</label>
+<select name="cities" id="post-cities">
+{%for city in cities%}
+    <option value="{{city.pk}}">{{city.name}}</option>
+    {%empty%}
+    <option>no cities</option>
+{%endfor%}
+</select>
+<input type="submit" value = "submit">
+</form>
+{%endblock%}
