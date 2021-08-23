@@ -11,6 +11,9 @@ urlpatterns = [
     path('accounts/signup/', views.Signup.as_view(), name='signup'),
     path('regerror/', views.HomeError.as_view(), name='reg_error'),
     path('posts/<int:pk>/', views.PostDetails.as_view(), name='post_details'),
+    path('posts/create/', views.PostCreate.as_view(), name='post_create'),
+    path('posts/<int:pk>/update/', views.PostUpdate.as_view(), name='post_update'),
+    path('posts/<int:pk>/delete/', views.PostDelete.as_view(), name='post_delete'),
     path('cities/<int:pk>/', views.CityDetail.as_view(), name='cities_detail'),
     path('cities/<slug:slug>/', views.CityDetailView.as_view(), name='city_detail'),
     # put urls here
