@@ -30,6 +30,9 @@
 .modal-content{
   background-image: url("https://tierrasuratherzog.com/wp-content/uploads/2019/05/TS-Wedding-Paper-BG.jpg");
 }
+.popout { 
+  position: absolute !important;
+}
 </style>
 <body>
 {% if request.path != '/accounts/login/' and request.path != '/accounts/signup/' %}
@@ -39,6 +42,21 @@
     <img src="https://i.imgur.com/0W4jfcd.png">
     Wayfarer</a>
       <div class="navbar-nav">
+        <div class="navbar-collapse" id="navbarNavDarkDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Cities
+            </a>
+              <ul class="dropdown-menu dropdown-menu-dark popout" style="right: 0; left: auto;" aria-labelledby="navbarDarkDropdownMenuLink">
+                <li><a class="dropdown-item" href="/cities/1/">London</a></li>
+                <li><a class="dropdown-item" href="#">San Francisco</a></li>
+                <li><a class="dropdown-item" href="#">Seattle</a></li>
+                <li><a class="dropdown-item" href="#">Sydney</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
         {% if user.is_authenticated %}
         <a class="nav-link" style="padding-right: 10px;" href="{%url 'profile_detail' user.id %}">My Profile</a>  
         <a class="nav-link" href="{%url 'logout'%}">Log Out</a>        
