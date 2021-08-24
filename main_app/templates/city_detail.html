@@ -4,6 +4,24 @@
 {%endblock%}
 {%block content%}
 <style>
+body {
+  margin:0;
+  padding:0;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 70px 1fr;
+  min-height: 100vh;
+  position:relative;
+  overflow-x: hidden;
+}
+main {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-column-gap: 15px;
+}
+aside {
+  background:#ffa69e;
+}
 .modal-body form{
     display:grid;
 }
@@ -50,22 +68,38 @@
   display: none;
 }
 </style>
+<body>
+  <main>
+    <aside class="container rounded-3 pe-0 m-2 border border-2 border-dark">
+      <h1 class="pt-2 ps-3">Cities</h1>
+      {% for city in cities %}
+        <div class="cointainer row m-3 rounded-3" style="background-color: #AED9E0;">
+          <div class="col-3 p-0">
+            <img class="img-fluid rounded m-1" style="border: 2px solid black;" src="{{city.image}}" alt="">
+          </div>
+          <div class="col-9">
+            <a style="color: black; text-decoration: none;" href="{% url "cities_detail" city.pk %}">
+              <h4 class="mb-0" style="color: black; " >{{city.name}}</h4></a>
+          </div>
+        </div>
+    {% endfor %}
+    </aside>
 
-<div class="container">
+<div class="container rounded-3 m-2 me-4 ps-0 border border-2 border-dark">
 <div class="container">
   <div class="row">
-    <div class="col-4 ps-4">
+    <div class="col-4 ps-4 pe-0">
       <h2 class="fw-bolder">{{city.name}}</h2>
       <h4>{{city.country}}</h3>
     </div>
-    <div class="col-8 pe-4">
-      <img class="img-fluid rounded me-2" src="{{city.image}}" alt="{{city.name}}">
+    <div class="col-8 ps-0 pe-0">
+      <img class="img-fluid rounded-3 me-2 pt-3 pe-1" src="{{city.image}}" alt="{{city.name}}">
     </div>
   </div>
 </div>
 
 
-<div class="container ps-4">
+<div class="container ps-4 pe-0">
 <div class="d-flex justify-content-between p-3">
   <h3>Posts</h3>
   {%if user.is_authenticated%}
@@ -242,6 +276,8 @@
     </div>
   </div>
 </div>
+</main>
+</body>
 <!--modal post create end-->
 <script>
 $(document).ready(function() {
