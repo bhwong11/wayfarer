@@ -32,10 +32,36 @@ main {
 .post-create-btn:visited {
   color:#5E6472;
 }
-aside {
-  background:#ffa69e;
+.edit-post-btn{
+  color:#5E6472;
 }
-
+.edit-post-btn:hover {
+  color:black;
+}
+.edit-post-btn:visited {
+  color:#5E6472;
+}
+.delete-post-btn{
+  color:#5E6472;
+}
+.delete-post-btn:hover {
+  color:black;
+}
+.delete-post-btn:visited {
+  color:#5E6472;
+}
+.create-title-nodisplay{
+  display:none;
+}
+.create-content-nodisplay{
+  display: none;
+}
+.edit-title-nodisplay{
+  display:none;
+}
+.edit-content-nodisplay{
+  display: none;
+}
 </style>
 
 <body>
@@ -68,17 +94,109 @@ aside {
       </div>
 
 
-      <div class="container ps-4">
-        <div class="d-flex justify-content-between p-3 pb-0">
-          <h3>Posts</h3>
-  <!--Modal and button start-->
-  <!-- Button trigger modal -->
-            <a href='#' class="post-create-btn  text-decoration-none" data-bs-toggle="modal" data-bs-target="#createPostModal">
-              <span class="material-icons md-36">
-                add_circle_outline
-              </span>
-            </a>
+<div class="container ps-4">
+<div class="d-flex justify-content-between p-3">
+  <h3>Posts</h3>
+  {%if user.is_authenticated%}
+  <!-- Button Create trigger modal -->
+  <a href='#' class="post-create-btn  text-decoration-none" data-bs-toggle="modal" data-bs-target="#createPostModal">
+    <span class="material-icons md-36">
+      add_circle_outline
+    </span>
+  </a>
+<!--Button Create Modal end-->
+  {%endif%}
+</div>
+  <!--Modal and Button End-->
+
+
+</div>
+<div class="container">
+{% for post in city.posts.all|dictsortreversed:"created_at" %}
+
+
+<!-- Modal Edit -->
+<div class="modal fade" id="edit{{ forloop.counter }}Modal" tabindex="-1" aria-labelledby="edit{{ forloop.counter }}ModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h2 class = "mt-2">Edit: {{post.title}}</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      {%if user.pk == post.users.pk%}
+        <form class = "edit-post-form" action="{%url 'post_update' post.pk%}" method='POST'>
+        <div class="alert alert-danger edit-title-error edit-title-nodisplay">
+        Your title must be between 1 character and 200 characters
         </div>
+        <div class="alert alert-danger edit-content-error edit-content-nodisplay">
+        Your post content must be at least one character
+        </div>
+        {% csrf_token %}
+        <label for="post-title" class = "mb-1">title</label>
+        <input id = "post-title" type="text" name = 'title' value = "{{post.title}}" class = "mb-3">
+        <label for="post-content" class = "mb-1">content</label>
+        <textarea name="content" id="post-content" cols="30" rows="10" class = "mb-3">{{post.content}}</textarea>
+        <label for="post-cities" class = "mb-1">city</label>
+        <select class = "mb-3" name="cities" id="post-cities">
+        {%for city in cities%}
+        {%if city.pk == post.cities.pk%}
+        <option selected value="{{city.pk}}">{{city.name}}</option>
+        {%else%}
+        <option value="{{city.pk}}">{{city.name}}</option>
+        {%endif%}
+        {%empty%}
+        <option>no cities</option>
+        {%endfor%}
+        </select>
+        <input class = "mb-3 btn btn-outline-secondary" type="submit" value = "submit">
+        </form>
+        {%else%}
+        <div class="alert alert-danger">
+        Only the post creator can edit this post.
+        </div>
+        {%endif%}
+      </div>
+    </div>
+  </div>
+</div>
+<!--Modal Edit End-->
+
+<!-- Modal Delete -->
+<div class="modal fade" id="delete{{forloop.counter}}Modal" tabindex="-1" aria-labelledby="delete{{forloop.counter}}ModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h2 "mt-2">Delete Post</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {%if user.pk == post.users.pk%}
+        <h3>Are you sure you want to delete: {{post.title}}?</h3>
+        <form action="{%url 'post_delete' post.pk%}" method="POST">
+        {% csrf_token %}
+        <dev class="d-flex">
+        <input class = "mb-3 me-3 btn btn-outline-danger" type="submit" value = "Delete"> 
+        <a href="#" 
+        class="mb-3 btn btn-outline-secondary" 
+        data-bs-dismiss="modal" 
+        aria-label="Close">Cancel</a>
+        </dev>
+        </form>
+        {%else%}
+        <div class="alert alert-danger">
+        Only the post creator can delete this post.
+        </div>
+        {%endif%}
+      </div>
+    </div>
+  </div>
+</div>
+<!--Modal Delete End-->
+
+  <div class="row m-3 rounded-3" style="background-color:#F7EBC7;">
+      <div class="col-2 p-0">
+      <img class="img-fluid rounded m-1" style="border: 5px solid black;" src="{{post.users.profile.image}}" alt="">
       </div>
   
   <!--Modal and Button End-->
@@ -90,13 +208,30 @@ aside {
           </div>
         <div class="col-10">
           <a style="color: black;" href="{% url "post_details" post.pk %} "><h5 style="color: black;" >{{post.title}}</h5></a>
-        {% if post.content|length > 1000 %}
-          <p class="half-content" id="half-{{post.id}}">{{ post.content|truncatechars:1000 }}<a data-id="{{post.id}}" href="javascript:void();" class="show-hide-btn text-decoration-none" style="color: #5e6472;"><br>Read More</a></p>
-          <p class="full-content" id="full-{{post.id}}" style="display: none;">{{ post.content }}<a data-id="{{post.id}}" href="javascript:void();" class="show-hide-btn text-decoration-none" style="color: #5e6472;"><br>Read Less</a></p>
-        {% else %}
-          <p>{{ post.content }}</p>
-        {% endif %}
-        </div>
+  {% if post.content|length > 1000 %}
+        <p class="half-content" id="half-{{post.id}}">{{ post.content|truncatechars:1000 }}<a data-id="{{post.id}}" href="javascript:void();" class="show-hide-btn text-decoration-none" style="color: #5e6472;"><br>Read More</a></p>
+        <p class="full-content" id="full-{{post.id}}" style="display: none;">{{ post.content }}<a data-id="{{post.id}}" href="javascript:void();" class="show-hide-btn text-decoration-none" style="color: #5e6472;"><br>Read Less</a></p>
+  {% else %}
+        <p>{{ post.content }}</p>
+    {% endif %}
+    {%if user.pk == post.users.pk%}
+    <!-- Button Edit trigger modal -->
+    <a href='#' class="edit-post-btn" data-bs-toggle="modal" data-bs-target="#edit{{ forloop.counter }}Modal">
+      <span class="material-icons">
+        drive_file_rename_outline
+      </span>
+    </a>
+<!--end modal button edit-->
+
+<!-- Button modal trigger delete -->
+  <a href='#' class="delete-post-btn" data-bs-toggle="modal" data-bs-target="#delete{{forloop.counter}}Modal">
+    <span class="material-icons">
+      delete_outline
+    </span>
+  </a>
+<!-- end Button modal delete -->
+{%endif%}
+      </div>
       </div>  
 
 {% endfor %}
@@ -111,7 +246,14 @@ aside {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="{%url 'post_create'%}" method='POST'>
+      
+        <form class = "create-post-form" action="{%url 'post_create'%}" method='POST'>
+        <div class="alert alert-danger create-title-error create-title-nodisplay">
+        Your title must be between 1 character and 200 characters
+        </div>
+        <div class="alert alert-danger create-content-error create-content-nodisplay">
+        Your post content must be at least one character
+        </div>
         {% csrf_token %}
         <label for="post-cities" class = "mb-1">city</label>
         <select class = "mb-3" name="cities" id="post-cities">
@@ -122,9 +264,9 @@ aside {
         {%endfor%}
         </select>
         <label  class = "mb-1" for="post-title">title</label>
-        <input class = "mb-3" id = "post-title" type="text" name = 'title'>
+        <input class = "form-post-title mb-3" id = "post-title" type="text" name = 'title'>
         <label class = "mb-1" for="post-content">content</label>
-        <textarea class = "mb-3" name="content" id="post-content" cols="30" rows="10"></textarea>
+        <textarea class = "form-post-content mb-3" name="content" id="post-content" cols="30" rows="10"></textarea>
         <input class = "mb-3 btn btn-outline-secondary" type="submit" value = "submit">
         </form>
       </div>
@@ -141,6 +283,54 @@ $(document).ready(function() {
     $("#half-" + id).toggle();//hide/show..
     $("#full-" + id).toggle();
   })
+})
+$(document).ready(function() {
+  const createForms = $('.create-post-form')
+  for(let form of createForms){
+    form.addEventListener('submit',function(e){
+      e.preventDefault()
+      let titleLength = form.childNodes[13].value.toString().length
+      let contentLength = form.childNodes[17].value.toString().length
+      $(form.childNodes[1]).addClass('create-title-nodisplay')
+      $(form.childNodes[3]).addClass('create-content-nodisplay')
+      if(titleLength<1 || titleLength>200){
+        $(form.childNodes[1]).removeClass('create-title-nodisplay')
+      }
+      if(contentLength<1){
+        $(form.childNodes[3]).removeClass('create-content-nodisplay')
+        console.log('error display content')
+      }
+      if(contentLength>1 && titleLength>1 && titleLength<200){
+        return form.submit()
+      }
+      
+    })
+  }
+  const editForms = $('.edit-post-form')
+  for(let form of editForms){
+    form.addEventListener('submit',function(e){
+      e.preventDefault()
+      console.log(form.childNodes)
+      let titleLength = form.childNodes[9].value.toString().length
+      let contentLength = form.childNodes[13].value.toString().length
+      $(form.childNodes[1]).addClass('edit-title-nodisplay')
+      $(form.childNodes[3]).addClass('edit-content-nodisplay')
+      if(titleLength<1 || titleLength>200){
+        $(form.childNodes[1]).toggle('edit-title-nodisplay')
+        console.log('error display title')
+      }else if(contentLength<1){
+        console.log(form.childNodes[3])
+        $(form.childNodes[3]).toggle('edit-title-nodisplay')
+        console.log('error display content')
+      }else{
+        form.submit()
+      }
+      
+    })
+  }
+  //on submit prevent default for all edit forms
+  //if content field is not empty and title is between 1 and 200 chars log submit
+  //if not display error 
 })
 </script>
 {%endblock%}
