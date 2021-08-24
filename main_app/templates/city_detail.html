@@ -296,14 +296,14 @@ $(document).ready(function() {
       let contentLength = form.childNodes[17].value.toString().length
       $(form.childNodes[1]).addClass('create-title-nodisplay')
       $(form.childNodes[3]).addClass('create-content-nodisplay')
-      if(titleLength<1 || titleLength>200){
+      if(titleLength<=1 || titleLength>200){
         $(form.childNodes[1]).removeClass('create-title-nodisplay')
       }
       if(contentLength<1){
         $(form.childNodes[3]).removeClass('create-content-nodisplay')
         console.log('error display content')
       }
-      if(contentLength>1 && titleLength>1 && titleLength<200){
+      if(contentLength>1 && titleLength=>1 && titleLength<200){
         return form.submit()
       }
       
@@ -318,7 +318,7 @@ $(document).ready(function() {
       let contentLength = form.childNodes[13].value.toString().length
       $(form.childNodes[1]).addClass('edit-title-nodisplay')
       $(form.childNodes[3]).addClass('edit-content-nodisplay')
-      if(titleLength<1 || titleLength>200){
+      if(titleLength<=1 || titleLength>200){
         $(form.childNodes[1]).toggle('edit-title-nodisplay')
         console.log('error display title')
       }else if(contentLength<1){
