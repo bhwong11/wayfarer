@@ -16,6 +16,7 @@ main {
   display: grid;
   grid-template-columns: 1fr 2fr;
   grid-column-gap: 15px;
+  margin: 10px;
 }
 aside {
   background:#fae5dd;
@@ -301,7 +302,11 @@ $(document).ready(function() {
         $(form.childNodes[3]).removeClass('create-content-nodisplay')
         console.log('error display content')
       }
+<<<<<<< HEAD
+      if(contentLength>1 && titleLength>=1 && titleLength<200){
+=======
       if(contentLength>1 && titleLength=>1 && titleLength<200){
+>>>>>>> dev
         return form.submit()
       }
       
