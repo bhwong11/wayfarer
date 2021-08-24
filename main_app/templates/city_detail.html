@@ -18,6 +18,7 @@ main {
   display: grid;
   grid-template-columns: 1fr 2fr;
   grid-column-gap: 15px;
+  margin: 10px;
 }
 aside {
   background:#ffa69e;
@@ -77,7 +78,7 @@ aside {
           <div class="col-3 p-0">
             <img class="img-fluid rounded m-1" style="border: 2px solid black;" src="{{city.image}}" alt="">
           </div>
-          <div class="col-9">
+          <div class="col-9 d-flex">
             <a style="color: black; text-decoration: none;" href="{% url "cities_detail" city.pk %}">
               <h4 class="mb-0" style="color: black; " >{{city.name}}</h4></a>
           </div>
@@ -303,7 +304,7 @@ $(document).ready(function() {
         $(form.childNodes[3]).removeClass('create-content-nodisplay')
         console.log('error display content')
       }
-      if(contentLength>1 && titleLength>1 && titleLength<200){
+      if(contentLength>1 && titleLength>=1 && titleLength<200){
         return form.submit()
       }
       
