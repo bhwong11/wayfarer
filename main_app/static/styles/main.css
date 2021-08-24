@@ -25,20 +25,11 @@ body {
 }
 
 
-.first_letter {
-    font-family: 'Tangerine', cursive;
-    font-size: 150px;
-    margin-right: 2px;
-}
-
 .carousel-inner {
     max-height: 700px;
     }
 
 
-form {
-    justify-content: center;
-}
 
 
 
