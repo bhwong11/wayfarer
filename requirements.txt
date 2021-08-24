@@ -10,5 +10,5 @@ pytz==2021.1
 sqlparse==0.4.1
 toml==0.10.2
 whitenoise==5.2.0
-crispy_forms
-crispy_bootstrap5
+crispy_forms==1.11.1
+crispy_bootstrap5==0.5
