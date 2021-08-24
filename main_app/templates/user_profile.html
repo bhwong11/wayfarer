@@ -1,5 +1,5 @@
 {%extends 'base.html'%}
-{%block title%}Wayfare Profile - {{user.username}}
+{%block title%}Wayfarer Profile - {{user.username}}
 {%endblock%}
 {%block content%}
 
@@ -51,12 +51,60 @@
             <hr>
             <div class="row">
                 <div class="col-sm-12">
-                    <a class="btn btn-outline-dark "  href="{% url 'profile_update' user.pk %}">Edit Profile</a>
+ <!-- Button Edit trigger modal -->
+ {% if request.user.pk == user.profile.pk %}
+<a href='#' class="edit-post-btn" data-bs-toggle="modal" data-bs-target="#edit{{ forloop.counter }}Modal">
+Edit Profile
+</a>
+<!--end modal button edit-->
+ {% else %}
+ {% endif %}
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Modal for Edit -->
+<div class="modal fade" id="edit{{ forloop.counter }}Modal" tabindex="-1" aria-labelledby="edit{{ forloop.counter }}ModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h2 class = "mt-2">Edit {{user.username}}</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body col-12">
+      {%if request.user.pk == user.profile.pk%}
+        <form class="edit-post-form" action="{%url 'profile_update' user.pk%}" method='POST'>
+        {% csrf_token %}
+        <label for="image" class="mb-1 ">Profile Picture</label>
+        <br>
+        <input id="image" type="text" name="image" value="{{user.profile.image}}" class="mb-3">
+        <br>
+        <label for="first" class="mb-1">First Name</label>
+        <br>
+        <input id="first" class="mb-3" type="text" name="first_name" value="{{user.first_name}}"/>
+        <br>
+        <label for="last" class="mb-1">Last Name</label>
+        <br>
+        <input id="last" class="mb-3" type="text" name="last_name" value="{{user.last_name}}"/>
+        <br>
+        <label for="city" class="mb-1">Current City</label>
+        <br>
+        <input id="city" class="mb-3" type="text" name="current_city" value="{{user.profile.current_city}}"/>
+        <br>
+        <input class="m-3 btn btn-outline-secondary" type="submit" value="submit">
+        </form>
+        {%else%}
+        <div class="alert alert-danger">
+        You may only edit your own profile.
+        </div>
+        {%endif%}
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End edit modal -->
 <div class="container">
     <div class="mx-auto display-4 m-5" style="width: 400px;">
         Travel Portfolio
