@@ -7,7 +7,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse
-from .models import Profile, Post, City
+from .models import Profile, Post, City, Comment
 # Create your views here.
 
 
@@ -123,10 +123,20 @@ class PostDetails(DetailView):
     model = Post
     template_name = 'post_details.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['comments'] = Comment.objects.all()
+        return context
+
 
 class CityDetailView(DetailView):
     model = City
     template_name = 'city_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['city'] = City.objects.get(pk=kwargs["pk"])
+        return context
 
 
 class CityDetail(DetailView):
@@ -137,3 +147,39 @@ class CityDetail(DetailView):
         context = super().get_context_data(**kwargs)
         context['cities'] = City.objects.all()
         return context
+
+
+class CommentCreate(CreateView):
+    model = Comment
+    template_name = 'comment_create.html'
+    fields = ['title', 'content', 'users', 'post']
+
+    def post(self, request):
+        title = request.POST.get('title')
+        content = request.POST.get('content')
+        post = Post.objects.get(pk=request.POST.get('post'))
+        users = request.user
+
+        new_comment = Comment.objects.create(
+            title=title, content=content, post=post, users=users
+        )
+        return redirect(f"/posts/{new_comment.post.pk}")
+
+
+class CommentUpdate(View):
+    def post(self, request, pk):
+        title = request.POST.get('title')
+        content = request.POST.get('content')
+
+        Comment.objects.filter(pk=pk).update(
+            title=title, content=content
+        )
+        updatedComment = Comment.objects.get(pk=pk)
+        return redirect(f"/posts/{updatedComment.post.pk}")
+
+
+class CommentDelete(View):
+    def post(self, request, pk):
+        comment = Comment.objects.get(pk=pk)
+        deletedComment = Comment.objects.filter(pk=pk).delete()
+        return redirect(f"/posts/{comment.post.pk}")

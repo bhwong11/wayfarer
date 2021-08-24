@@ -44,3 +44,20 @@ class Post(Model):
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        ordering = ['created_at']
+
+
+class Comment(Model):
+    title = CharField(max_length=200)
+    content = TextField(max_length=1000)
+    created_at = DateTimeField(auto_now_add=True)
+    users = ForeignKey(User, on_delete=CASCADE, related_name='comments')
+    post = ForeignKey(Post, on_delete=CASCADE, related_name='posts')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['created_at']
