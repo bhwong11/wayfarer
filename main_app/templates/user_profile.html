@@ -51,7 +51,7 @@
             <hr>
             <div class="row">
                 <div class="col-sm-12">
-                    <a class="btn btn-info "  href="{% url 'profile_update' user.pk %}">Edit Profile</a>
+                    <a class="btn btn-outline-dark "  href="{% url 'profile_update' user.pk %}">Edit Profile</a>
                 </div>
             </div>
         </div>
@@ -64,12 +64,11 @@
     {% comment %} <div class="input-group rounded">
         <input type="search" class="form-control rounded mb-4" placeholder="Search" aria-label="Search" aria-describedby="search-addon"/>
     </div> {% endcomment %}
-    <table class="table">
+    <table class="table table-hover">
         <thead>
             <tr>
-                {% comment %} <th scope="col">#</th> {% endcomment %}
                 <th scope="col">Title</th>
-                <th scope="col">Content</th>
+                <th scope="col">City</th>
                 <th scope="col">Post Created</th>
                 <th scope="col"></th>
             </tr>
@@ -77,9 +76,8 @@
     <tbody>
     {% for post in user.posts.all%}
         <tr>
-            {% comment %} <th scope="row">1</th> {% endcomment %}
             <td><a class="link-dark text-decoration-none" href="{% url 'post_details' post.pk %}">{{post.title}}</a></td>
-            <td>{{post.content}}</td>
+            <td>{{post.cities}}</td>
             <td>{{post.created_at}}</td>
             <td>
             </td>
