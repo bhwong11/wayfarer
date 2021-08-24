@@ -52,20 +52,21 @@
             Cities
             </a>
               <ul class="dropdown-menu dropdown-menu-dark popout" style="right: 0; left: auto;" aria-labelledby="navbarDarkDropdownMenuLink">
-                <li><a class="dropdown-item" href="/cities/1/">London</a></li>
-                <li><a class="dropdown-item" href="/cities/2/">San Francisco</a></li>
-                <li><a class="dropdown-item" href="/cities/3/">Seattle</a></li>
-                <li><a class="dropdown-item" href="/cities/4/">Sydney</a></li>
+                <li><a class="dropdown-item" href="/cities/1/">San Francisco</a></li>
+                <li><a class="dropdown-item" href="/cities/2/">Sydney</a></li>
+                <li><a class="dropdown-item" href="/cities/3/">London</a></li>
+                <li><a class="dropdown-item" href="/cities/4/">Seattle</a></li>
+                <li><a class="dropdown-item" href="/cities/5/">Gibraltar</a></li>
               </ul>
             </li>
           </ul>
         </div>
         {% if user.is_authenticated %}
-        <a class="nav-link" style="padding-right: 10px;" href="{%url 'profile_detail' request.user.id %}">My Profile</a>  
-        <a class="nav-link" href="{%url 'logout'%}">Log Out</a>        
+        <a class="nav-link" style="padding-right: 10px;" href="{%url 'profile_detail' request.user.id %}">My&nbsp;Profile</a>  
+        <a class="nav-link" href="{%url 'logout'%}">Log&nbsp;Out</a>        
         {%else%}
-        <a class="nav-link active sign-in" style="padding-right: 10px;" aria-current="page" data-bs-toggle="modal" data-bs-target="#exampleModal">Log In</a>
-        <a class="nav-link active sign-up" aria-current="page" data-bs-toggle="modal" data-bs-target="#exampleModal">Sign Up</a>
+        <a class="nav-link active sign-in" style="padding-right: 10px;" aria-current="page" data-bs-toggle="modal" data-bs-target="#exampleModal">Log&nbsp;In</a>
+        <a class="nav-link active sign-up" aria-current="page" data-bs-toggle="modal" data-bs-target="#exampleModal">Sign&nbsp;Up</a>
         {% endif %}
       </div>
   </div>
