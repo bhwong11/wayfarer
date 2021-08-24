@@ -33,4 +33,19 @@
         </div>
     </article>
 </div>
+
+{%for comment in comments%}
+<p>{{comment.title}}</p>
+{%endfor%}
+<form action="{%url 'comment_create'%}" method="POST">
+{% csrf_token %}
+<label for="comment-title">comment title</label>
+<input type="text" id = "comment-title" name="title">
+<label for="comment-content">comment content</label>
+<textarea name="content" id="comment-content" cols="30" rows="10"></textarea>
+<input type="hidden" name = "post" value="{{post.pk}}">
+<input type="submit" value ="submit">
+
+</form>
+
 {% endblock content %}

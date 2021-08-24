@@ -16,5 +16,10 @@ urlpatterns = [
     path('posts/<int:pk>/delete/', views.PostDelete.as_view(), name='post_delete'),
     path('cities/<int:pk>/', views.CityDetail.as_view(), name='cities_detail'),
     path('cities/<slug:slug>/', views.CityDetailView.as_view(), name='city_detail'),
+    path('comments/create/', views.CommentCreate.as_view(), name='comment_create'),
+    path('comments/<int:pk>/update/',
+         views.CommentUpdate.as_view(), name='comment_update'),
+    path('comments/<int:pk>/delete/',
+         views.CommentDelete.as_view(), name='comment_delete'),
     # put urls here
 ]
