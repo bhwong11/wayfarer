@@ -33,4 +33,9 @@
         </div>
     </article>
 </div>
+
+{%for comment in comments%}
+{{comment.title}}
+{%endfor%}
+
 {% endblock content %}
