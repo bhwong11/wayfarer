@@ -254,11 +254,17 @@ aside {
         {% csrf_token %}
         <label for="post-cities" class = "mb-1">city</label>
         <select class = "mb-3" name="cities" id="post-cities">
-        {%for city in cities%}
-        <option value="{{city.pk}}">{{city.name}}</option>
+        <!--cities selected-->
+        {%for cit in cities%}
+        {%if cit.pk == city.pk%}
+        <option selected value="{{cit.pk}}">{{cit.name}}</option>
+        {%else%}
+        <option value="{{cit.pk}}">{{cit.name}}</option>
+        {%endif%}
         {%empty%}
         <option>no cities</option>
         {%endfor%}
+         <!--cities end selected-->
         </select>
         <label  class = "mb-1" for="post-title">title</label>
         <input class = "form-post-title mb-3" id = "post-title" type="text" name = 'title'>

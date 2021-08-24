@@ -50,9 +50,11 @@
             </div>
             <hr>
             <div class="row">
+                {%if request.user.pk == user.pk%}
                 <div class="col-sm-12">
                     <a class="btn btn-outline-dark "  href="{% url 'profile_update' user.pk %}">Edit Profile</a>
                 </div>
+                {%endif%}
             </div>
         </div>
     </div>
