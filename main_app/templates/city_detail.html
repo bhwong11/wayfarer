@@ -4,19 +4,6 @@
 {%endblock%}
 {%block content%}
 <style>
-body {
-  margin:0;
-  padding:0;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 70px 1fr;
-  min-height: 100vh;
-}
-main {
-  display: grid;
-  grid-template-columns: 1fr 2.5fr;
-}
-
 .modal-body form{
     display:grid;
 }
@@ -64,34 +51,18 @@ main {
 }
 </style>
 
-<body>
-  <main class="mt-2">
-    <aside class="container mt-2 border border-2 border-dark">
-      <h1 class="pt-2 ps-3">Cities</h1>
-      {% for city in cities %}
-        <div class="cointainer row m-3 rounded-3">
-          <div class="col-6 p-0" style="height: 100px;">
-            <img  class="img-fluid mh-100 rounded m-1" style="border: 5px solid black;" src="{{city.image}}" alt="">
-          </div>
-          <div class="col-6">
-            <a style="color: black; text-decoration: none;" href="/cities/1/ ">
-              <h4 class="ps-2 pt-1" style="color: black; " >{{city.name}}</h4></a>
-          </div>
-        </div>
-    {% endfor %}
-    </aside>
-    <div class="container ps-0 m-2 pe-0 border border-2 border-dark">
-      <div class="container">
-        <div class="row">
-          <div class="col-3 ps-4">
-            <h2 class="fw-bolder pt-2">{{city.name}}</h2>
-            <h4>{{city.country}}</h4>
-          </div>
-          <div class="col-8 ps-5">
-            <img class="img-fluid rounded pt-2" src="{{city.image}}" alt="{{city.name}}">
-          </div>
-        </div>
-      </div>
+<div class="container">
+<div class="container">
+  <div class="row">
+    <div class="col-4 ps-4">
+      <h2 class="fw-bolder">{{city.name}}</h2>
+      <h4>{{city.country}}</h3>
+    </div>
+    <div class="col-8 pe-4">
+      <img class="img-fluid rounded me-2" src="{{city.image}}" alt="{{city.name}}">
+    </div>
+  </div>
+</div>
 
 
 <div class="container ps-4">
@@ -198,15 +169,7 @@ main {
       <div class="col-2 p-0">
       <img class="img-fluid rounded m-1" style="border: 5px solid black;" src="{{post.users.profile.image}}" alt="">
       </div>
-  
-  <!--Modal and Button End-->
-      <div class="container">
-        {% for post in city.posts.all %}
-        <div class="row m-3 rounded-3" style="background-color:#F7EBC7;">
-          <div class="col-2 p-0">
-            <img class="img-fluid rounded m-1" style="border: 5px solid black;" src="{{post.users.profile.image}}" alt="">
-          </div>
-        <div class="col-10">
+      <div class="col-10">
           <a style="color: black;" href="{% url "post_details" post.pk %} "><h5 style="color: black;" >{{post.title}}</h5></a>
   {% if post.content|length > 1000 %}
         <p class="half-content" id="half-{{post.id}}">{{ post.content|truncatechars:1000 }}<a data-id="{{post.id}}" href="javascript:void();" class="show-hide-btn text-decoration-none" style="color: #5e6472;"><br>Read More</a></p>
@@ -273,8 +236,6 @@ main {
     </div>
   </div>
 </div>
-</main>
-</body>
 <!--modal post create end-->
 <script>
 $(document).ready(function() {
