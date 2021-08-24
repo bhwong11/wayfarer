@@ -50,6 +50,7 @@
             </div>
             <hr>
             <div class="row">
+                {%if request.user.pk == user.pk%}
                 <div class="col-sm-12">
  <!-- Button Edit trigger modal -->
  {% if request.user.pk == user.profile.pk %}
@@ -60,6 +61,7 @@ Edit Profile
  {% else %}
  {% endif %}
                 </div>
+                {%endif%}
             </div>
         </div>
     </div>

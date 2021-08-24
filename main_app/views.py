@@ -7,7 +7,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse
-from .models import Profile, Post, City
+from .models import Profile, Post, City, Comment
 # Create your views here.
 
 
@@ -123,6 +123,11 @@ class PostDetails(DetailView):
     model = Post
     template_name = 'post_details.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['comments'] = Comment.objects.all()
+        return context
+
 
 class CityDetailView(DetailView):
     model = City
@@ -137,3 +142,29 @@ class CityDetail(DetailView):
         context = super().get_context_data(**kwargs)
         context['cities'] = City.objects.all()
         return context
+
+
+class CommentCreate(CreateView):
+    model = Comment
+    template_name = 'comment_create.html'
+    fields = ['title', 'content', 'users', 'post']
+
+    def post(self, request):
+        #comment = Comment.objects.get(pk=pk)
+        ##createdcomment = Comment.objects.filter(pk=pk)
+        # return redirect(f"/cities/{Comment.cities.pk}")
+        title = request.POST.get('title')
+        content = request.POST.get('content')
+        post = Post.objects.get(pk=request.POST.get('post'))
+        users = request.user
+
+        new_comment = Comment.objects.create(
+            title=title, content=content, post = post,users=users
+        )
+        return redirect(f"/posts/{new_comment.post.pk}")
+
+class CommentUpdate(View):
+    pass
+
+class CommentDelete(View):
+    pass
