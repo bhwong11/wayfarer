@@ -69,16 +69,17 @@
         {%if user.pk == comment.users.pk%}
         <form action="{%url 'comment_update' comment.pk%}" method="POST" class="container d-flex flex-column">
         {% csrf_token %}
-        <label for="comment-title">comment title</label>
-        <input type="text" id = "comment-title" name="title" value = "{{comment.title}}">
-        <label for="comment-content">comment content</label>
-        <textarea name="content" id="comment-content" cols="30" rows="10">{{comment.content}}</textarea>
+        <label for="comment-title" class = "mb-1">comment title</label>
+        <input type="text" id = "comment-title" name="title" value = "{{comment.title}}"
+        class = "mb-3">
+        <label for="comment-content" class = "mb-1">comment content</label>
+        <textarea name="content" id="comment-content" cols="30" rows="10" class = "mb-3">{{comment.content}}</textarea>
         <input type="submit" value ="submit">
 
         </form>
         {%else%}
         <div class="alert alert-danger">
-        Only the post creator can delete this post.
+        Only the comment creator can edit this post.
         </div>
         {%endif%}
       </div>
@@ -110,7 +111,7 @@
         </form>
         {%else%}
         <div class="alert alert-danger">
-        Only the post creator can delete this post.
+        Only the comment creator can delete this post.
         </div>
         {%endif%}
       </div>
@@ -140,37 +141,5 @@
   </div>
 </div>
 {%endfor%}
-
-
-
-{%for comment in comments%}
-
-<p>{{comment.title}}</p>
-<form action="{%url 'comment_update' comment.pk%}" method="POST">
-{% csrf_token %}
-<label for="comment-title">comment title</label>
-<input type="text" id = "comment-title" name="title" value = "{{comment.title}}">
-<label for="comment-content">comment content</label>
-<textarea name="content" id="comment-content" cols="30" rows="10">{{comment.content}}</textarea>
-<input type="submit" value ="submit">
-
-</form>
-
-<h5>delete</h5>
-<form action="{% url 'comment_delete' comment.pk %}" method="POST">
-{% csrf_token %}
-<input type="submit" value="Delete">
-</form>
-{%endfor%}
-<form action="{%url 'comment_create'%}" method="POST">
-{% csrf_token %}
-<label for="comment-title">comment title</label>
-<input type="text" id = "comment-title" name="title">
-<label for="comment-content">comment content</label>
-<textarea name="content" id="comment-content" cols="30" rows="10"></textarea>
-<input type="hidden" name = "post" value="{{post.pk}}">
-<input type="submit" value ="submit">
-
-</form>
 
 {% endblock content %}
