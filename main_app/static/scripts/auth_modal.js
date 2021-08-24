@@ -35,7 +35,7 @@
         //end
     });
 
-    $(document).on('submit','form',signInHandler);
+    $('#exampleModal').on('submit','form',signInHandler);
     
 
     //sign up event handler
@@ -68,7 +68,7 @@
         await $(".modal-body").load("/accounts/signup");
     });
 
-    $(document).on('submit','form',signUpHandler);
+    $('#exampleModal').on('submit','form',signUpHandler);
     
 if(window.location.pathname==='/accounts/login/' || window.location.pathname==='/accounts/signup/'){
     window.location.replace("/");

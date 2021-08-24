@@ -19,6 +19,15 @@
 .post-create-btn:visited {
   color:#5E6472;
 }
+.edit-post-btn{
+  color:#5E6472;
+}
+.edit-post-btn:hover {
+  color:black;
+}
+.edit-post-btn:visited {
+  color:#5E6472;
+}
 </style>
 
 <div class="container">
@@ -52,6 +61,74 @@ add_circle_outline
 </div>
 <div class="container">
 {% for post in city.posts.all %}
+
+
+<!-- Modal Edit -->
+<div class="modal fade" id="edit{{ forloop.counter }}Modal" tabindex="-1" aria-labelledby="edit{{ forloop.counter }}ModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h2 class = "mt-2">Edit: {{post.title}}</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{%url 'post_update' post.pk%}" method='POST'>
+        {% csrf_token %}
+        <label for="post-title" class = "mb-1">title</label>
+        <input id = "post-title" type="text" name = 'title' value = "{{post.title}}" class = "mb-3">
+        <label for="post-content" class = "mb-1">content</label>
+        <textarea name="content" id="post-content" cols="30" rows="10" class = "mb-3">{{post.content}}</textarea>
+        <label for="post-cities" class = "mb-1">city</label>
+        <select class = "mb-3" name="cities" id="post-cities">
+        {%for city in cities%}
+        {%if city.pk == post.cities.pk%}
+        <option selected value="{{city.pk}}">{{city.name}}</option>
+        {%else%}
+        <option value="{{city.pk}}">{{city.name}}</option>
+        {%endif%}
+        {%empty%}
+        <option>no cities</option>
+        {%endfor%}
+        </select>
+        <input class = "mb-3 btn btn-outline-secondary" type="submit" value = "submit">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Modal Edit End-->
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#delete{{forloop.counter}}Modal">
+  Launch demo modal
+</button>
+
+<!-- Modal Delete -->
+<div class="modal fade" id="delete{{forloop.counter}}Modal" tabindex="-1" aria-labelledby="delete{{forloop.counter}}ModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h2 "mt-2">Delete Post</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h3>Are you sure you want to delete: {{post.title}}?</h3>
+        <form action="{%url 'post_delete' post.pk%}" method="POST">
+        {% csrf_token %}
+        <dev class="d-flex">
+        <input class = "mb-3 me-3 btn btn-outline-danger" type="submit" value = "Delete"> 
+        <a href="#" 
+        class="mb-3 btn btn-outline-secondary" 
+        data-bs-dismiss="modal" 
+        aria-label="Close">Cancel</a>
+        </dev>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Modal Delete End-->
+
   <div class="row m-3 rounded-3" style="background-color:#F7EBC7;">
       <div class="col-2 p-0">
       <img class="img-fluid rounded m-1" style="border: 5px solid black;" src="{{post.users.profile.image}}" alt="">
@@ -64,6 +141,12 @@ add_circle_outline
   {% else %}
         <p>{{ post.content }}</p>
     {% endif %}
+    <!-- Button Edit trigger modal -->
+<a href='#' class="edit-post-btn" data-bs-toggle="modal" data-bs-target="#edit{{ forloop.counter }}Modal">
+<span class="material-icons">
+drive_file_rename_outline
+</span>
+</a>
 
       </div>
       </div>  
