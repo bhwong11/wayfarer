@@ -69,14 +69,14 @@
 
 <!-- Modal for Edit -->
 <div class="modal fade" id="edit{{ forloop.counter }}Modal" tabindex="-1" aria-labelledby="edit{{ forloop.counter }}ModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+    <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header border-0">
+        <div class="modal-header border-0">
         <h2 class = "mt-2">Edit {{user.username}}</h2>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body col-12">
-      {%if request.user.pk == user.profile.pk%}
+        </div>
+        <div class="modal-body col-12">
+        {%if request.user.pk == user.profile.pk%}
         <form class="edit-post-form" action="{%url 'profile_update' user.pk%}" method='POST'>
         {% csrf_token %}
         <label for="image" class="mb-1 ">Profile Picture</label>
@@ -102,9 +102,9 @@
         You may only edit your own profile.
         </div>
         {%endif%}
-      </div>
+        </div>
     </div>
-  </div>
+    </div>
 </div>
 <!-- End edit modal -->
 <div class="container">
