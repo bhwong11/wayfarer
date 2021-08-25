@@ -34,28 +34,29 @@
     </article>
 </div>
 
-<div class="gird">
+
+<div class="container mt-3">
 <div class="row">
-<div class="col-4">
-<div class="container">
+<div class="col-md-12">
+{%if user.is_authenticated%}
 <form action="{%url 'comment_create'%}" method="POST">
 {% csrf_token %}
-<div class="h1">Add a Comment!</div>
-<div class = "mb-3">
-  <div><label for="comment-title" class="form-label">Comment title</label></div>
-  <input type="text" id = "comment-title" name="title">
-</div>
-<div class = "mb-3">
-<div><label for="comment-content">comment content</label></div>
-  <textarea name="content" id="comment-content" cols="30" rows="10"></textarea>
-</div>
-<input type="hidden" name = "post" value="{{post.pk}}">
-<input type="submit" value ="submit">
+  <div class="h1">Add a Comment!</div>
+    <div class = "mb-3">
+      <div><label for="comment-title" class="form-label">Comment title</label></div>
+      <input type="text" id = "comment-title" name="title" class="w-100">
+  </div>
+  <div class = "mb-3">
+    <div><label for="comment-content">comment content</label></div>
+    <textarea name="content" id="comment-content" cols="30" rows="10" class="w-100"></textarea>
+  </div>
+  <input type="hidden" name = "post" value="{{post.pk}}">
+  <input type="submit" value ="submit">
 </form>
-</div>
-</div>
+{%endif%}
 </br>
-<div class="col-8">
+
+
 {%for comment in comments|dictsortreversed:"created_at"%}
 <!-- Modal Edit -->
 <div class="modal fade" id="edit_comment{{forloop.counter}}Modal" tabindex="-1" aria-labelledby="edit_comment{{forloop.counter}}ModalLabel" aria-hidden="true">
@@ -69,16 +70,17 @@
         {%if user.pk == comment.users.pk%}
         <form action="{%url 'comment_update' comment.pk%}" method="POST" class="container d-flex flex-column">
         {% csrf_token %}
-        <label for="comment-title">comment title</label>
-        <input type="text" id = "comment-title" name="title" value = "{{comment.title}}">
-        <label for="comment-content">comment content</label>
-        <textarea name="content" id="comment-content" cols="30" rows="10">{{comment.content}}</textarea>
+        <label for="comment-title" class = "mb-1">comment title</label>
+        <input type="text" id = "comment-title" name="title" value = "{{comment.title}}"
+        class = "mb-3">
+        <label for="comment-content" class = "mb-1">comment content</label>
+        <textarea name="content" id="comment-content" cols="30" rows="10" class = "mb-3">{{comment.content}}</textarea>
         <input type="submit" value ="submit">
 
         </form>
         {%else%}
         <div class="alert alert-danger">
-        Only the post creator can delete this post.
+        Only the comment creator can edit this post.
         </div>
         {%endif%}
       </div>
@@ -110,7 +112,7 @@
         </form>
         {%else%}
         <div class="alert alert-danger">
-        Only the post creator can delete this post.
+        Only the comment creator can delete this post.
         </div>
         {%endif%}
       </div>
@@ -120,12 +122,11 @@
 <!--Modal Delete End-->
 
 
-<form action="{%url 'comment_create'%}" method="POST">
-{% csrf_token %}
-<div class="card mb-5" style="width: 35rem;">
+<div class="card mb-3 w-100" style="width: 35rem;">
   <div class="card-body">
     <h5 class="card-title">{{comment.title}}</h5>
     <p class="card-text">{{comment.content}}</p>
+
     <!-- Button modal trigger Edit -->
     <a href="#" class="btn btn-dark"
     data-bs-toggle="modal" data-bs-target="#edit_comment{{forloop.counter}}Modal">edit</a>
@@ -135,42 +136,12 @@
     class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_comment{{forloop.counter}}Modal">
       Delete
     </a>
-<!-- end Button modal delete -->
-
   </div>
 </div>
+<!-- end Button modal delete -->
 {%endfor%}
-
-
-
-{%for comment in comments%}
-
-<p>{{comment.title}}</p>
-<form action="{%url 'comment_update' comment.pk%}" method="POST">
-{% csrf_token %}
-<label for="comment-title">comment title</label>
-<input type="text" id = "comment-title" name="title" value = "{{comment.title}}">
-<label for="comment-content">comment content</label>
-<textarea name="content" id="comment-content" cols="30" rows="10">{{comment.content}}</textarea>
-<input type="submit" value ="submit">
-
-</form>
-
-<h5>delete</h5>
-<form action="{% url 'comment_delete' comment.pk %}" method="POST">
-{% csrf_token %}
-<input type="submit" value="Delete">
-</form>
-{%endfor%}
-<form action="{%url 'comment_create'%}" method="POST">
-{% csrf_token %}
-<label for="comment-title">comment title</label>
-<input type="text" id = "comment-title" name="title">
-<label for="comment-content">comment content</label>
-<textarea name="content" id="comment-content" cols="30" rows="10"></textarea>
-<input type="hidden" name = "post" value="{{post.pk}}">
-<input type="submit" value ="submit">
-
-</form>
+</div>
+</div>
+</div>
 
 {% endblock content %}
