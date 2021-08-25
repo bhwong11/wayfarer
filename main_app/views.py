@@ -137,6 +137,8 @@ class CityDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['city'] = City.objects.get(pk=kwargs["pk"])
         return context
+
+
 class CityDetail(DetailView):
     model = City
     template_name = 'city_detail.html'
@@ -153,21 +155,31 @@ class CommentCreate(CreateView):
     fields = ['title', 'content', 'users', 'post']
 
     def post(self, request):
-        #comment = Comment.objects.get(pk=pk)
-        ##createdcomment = Comment.objects.filter(pk=pk)
-        # return redirect(f"/cities/{Comment.cities.pk}")
         title = request.POST.get('title')
         content = request.POST.get('content')
         post = Post.objects.get(pk=request.POST.get('post'))
         users = request.user
 
         new_comment = Comment.objects.create(
-            title=title, content=content, post = post,users=users
+            title=title, content=content, post=post, users=users
         )
         return redirect(f"/posts/{new_comment.post.pk}")
 
+
 class CommentUpdate(View):
-    pass
+    def post(self, request, pk):
+        title = request.POST.get('title')
+        content = request.POST.get('content')
+
+        Comment.objects.filter(pk=pk).update(
+            title=title, content=content
+        )
+        updatedComment = Comment.objects.get(pk=pk)
+        return redirect(f"/posts/{updatedComment.post.pk}")
+
 
 class CommentDelete(View):
-    pass
+    def post(self, request, pk):
+        comment = Comment.objects.get(pk=pk)
+        deletedComment = Comment.objects.filter(pk=pk).delete()
+        return redirect(f"/posts/{comment.post.pk}")
