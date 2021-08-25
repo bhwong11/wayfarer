@@ -55,7 +55,7 @@
  <!-- Button Edit trigger modal -->
  {% if request.user.pk == user.profile.pk %}
 <a href='#' class="edit-post-btn" data-bs-toggle="modal" data-bs-target="#edit{{ forloop.counter }}Modal">
-Edit Profile
+ <button class="btn btn-secondary">Edit</button>
 </a>
 <!--end modal button edit-->
  {% else %}
