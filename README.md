@@ -59,7 +59,7 @@ Below, the screenshots of the site created with our clients input:
 
 - Post Creation Modal
 
-![page](./readme-images/homepage.png)
+![page](./readme-images/postcreationmodal.png)
 
 - Post Detail Page
 
