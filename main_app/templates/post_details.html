@@ -34,28 +34,29 @@
     </article>
 </div>
 
-<div class="gird">
+
+<div class="container mt-3">
 <div class="row">
-<div class="col-4">
-<div class="container">
+<div class="col-md-12">
+{%if user.is_authenticated%}
 <form action="{%url 'comment_create'%}" method="POST">
 {% csrf_token %}
-<div class="h1">Add a Comment!</div>
-<div class = "mb-3">
-  <div><label for="comment-title" class="form-label">Comment title</label></div>
-  <input type="text" id = "comment-title" name="title">
-</div>
-<div class = "mb-3">
-<div><label for="comment-content">comment content</label></div>
-  <textarea name="content" id="comment-content" cols="30" rows="10"></textarea>
-</div>
-<input type="hidden" name = "post" value="{{post.pk}}">
-<input type="submit" value ="submit">
+  <div class="h1">Add a Comment!</div>
+    <div class = "mb-3">
+      <div><label for="comment-title" class="form-label">Comment title</label></div>
+      <input type="text" id = "comment-title" name="title" class="w-100">
+  </div>
+  <div class = "mb-3">
+    <div><label for="comment-content">comment content</label></div>
+    <textarea name="content" id="comment-content" cols="30" rows="10" class="w-100"></textarea>
+  </div>
+  <input type="hidden" name = "post" value="{{post.pk}}">
+  <input type="submit" value ="submit">
 </form>
-</div>
-</div>
+{%endif%}
 </br>
-<div class="col-8">
+
+
 {%for comment in comments|dictsortreversed:"created_at"%}
 <!-- Modal Edit -->
 <div class="modal fade" id="edit_comment{{forloop.counter}}Modal" tabindex="-1" aria-labelledby="edit_comment{{forloop.counter}}ModalLabel" aria-hidden="true">
@@ -121,12 +122,11 @@
 <!--Modal Delete End-->
 
 
-<form action="{%url 'comment_create'%}" method="POST">
-{% csrf_token %}
-<div class="card mb-5" style="width: 35rem;">
+<div class="card mb-3 w-100" style="width: 35rem;">
   <div class="card-body">
     <h5 class="card-title">{{comment.title}}</h5>
     <p class="card-text">{{comment.content}}</p>
+
     <!-- Button modal trigger Edit -->
     <a href="#" class="btn btn-dark"
     data-bs-toggle="modal" data-bs-target="#edit_comment{{forloop.counter}}Modal">edit</a>
@@ -136,10 +136,12 @@
     class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_comment{{forloop.counter}}Modal">
       Delete
     </a>
-<!-- end Button modal delete -->
-
   </div>
 </div>
+<!-- end Button modal delete -->
 {%endfor%}
+</div>
+</div>
+</div>
 
 {% endblock content %}
